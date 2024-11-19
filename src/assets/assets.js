@@ -1,6 +1,6 @@
-import banner from './banner.png';
-import iconLogo from './icon-logo.png';
-import logoLight from 'logo-light.png';
-import logoDark from 'logo-dark.png';
+import banner from './index_dwn.gif';
+import iconLogo from './index_dwn.gif';
+import logoLight from './index_dwn.gif';
+import logoDark from './index_dwn.gif';
 
 export { banner, iconLogo, logoLight, logoDark };
