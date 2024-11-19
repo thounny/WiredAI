@@ -134,7 +134,7 @@
     pt-1;
   }
 
-/* BUTTON */
+  /* BUTTON */
   .btn {
     @apply h-10
     flex
@@ -148,9 +148,6 @@
     ease-standard
 
     hover:shadow-elevation1;
-
-    focus:shadow-none;
-
   }
 
   .btn.filled.primary {
@@ -200,7 +197,8 @@
     @apply opacity-[0.08];
   }
 
-  :has(> .state-layer):where(:focus, :focus-visible, :focus-within) > .state-layer {
+  :has(> .state-layer):where(:focus, :focus-visible, :focus-within)
+    > .state-layer {
     @apply opacity-[0.1];
   }
 
@@ -229,4 +227,4 @@
     h-full
     object-cover;
   }
- }
+}
