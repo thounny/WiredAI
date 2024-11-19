@@ -58,7 +58,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 label="Full name"
-                placeholder="Enter your full name"
+                placeholder="Full Name"
                 required={true}
                 autoFocus={true}
               />
@@ -66,14 +66,14 @@ const Register = () => {
                 type="email"
                 name="email"
                 label="Email"
-                placeholder="Enter your email address"
+                placeholder="Email"
                 required={true}
               />
               <TextField
                 type="password"
                 name="password"
                 label="Password"
-                placeholder="Enter your password"
+                placeholder="Enter your Password"
                 required={true}
               />
 
