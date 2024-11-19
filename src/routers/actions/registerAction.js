@@ -1,6 +1,11 @@
+// NODE MODULES
+import { redirect } from "react-router-dom";
+
 // CUSTOM MODULES
 import { account } from "../../lib/appwrite";
 import generateID from "../../utils/generateID";
+
+
 
 // REGISTER ACTION
 const registerAction = async ({ request }) => {
@@ -8,34 +13,33 @@ const registerAction = async ({ request }) => {
   const formData = await request.formData();
 
   try {
-    // CREATE USER
+    // CREATE ACCOUNT
     await account.create(
-      generateID(), // GENERATES UNIQUE ID
-      formData.get("email"),
-      formData.get("password"),
-      formData.get("name")
-    );
-
-    // SUCCESS MESSAGE
-    return {
-      success: true,
-      message: "User registered successfully!",
-    };
+        generateID(), // GENERATE UNIQUE ID
+        formData.get("email"), // EMAIL
+        formData.get("password"), // PASSWORD
+        formData.get("name") // NAME
+    )
   } catch (err) {
-    if (err.code === 409) {
-      // HANDLE EMAIL ALREADY EXISTS
-      return {
-        success: false,
-        message: "A user with this email already exists. Please try logging in.",
-      };
-    }
-
-    // HANDLE OTHER ERRORS
     return {
-      success: false,
-      message: `An error occurred: ${err.message}`,
+        message: err.message, 
     };
   }
+
+// AFTER ACCOUNT CREATION, REDIRECT TO HOME PAGE
+try {
+    // CREATE SESSION FOR NEW USER
+    await account.createEmailPasswordSession(
+        formData.get("email"), // EMAIL
+        formData.get("password"), // PASSWORD
+    );
+} catch (err) {
+    console.log(`Error creating email password session: ${err.message}`);
+    return redirect("/login");
+}
+
+// SUCCESSFUL REGISTRATION, REDIRECT TO HOME PAGE
+  return redirect("/");
 };
 
 export default registerAction;
