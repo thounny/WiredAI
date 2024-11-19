@@ -1,5 +1,5 @@
 // NODE MODULES
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigation } from "react-router-dom";
 
 // CUSTOM MODULES
 import { logoLight, logoDark, banner } from "../assets/assets";
@@ -10,6 +10,12 @@ import TextField from "../components/TextField";
 import { Button } from "../components/Button";
 
 const Register = () => {
+
+  // GET NAVIGATION (LOADING/SUBMITTING)
+  const navigation = useNavigation();
+  console.log(navigation.state);
+  
+
   return (
     <>
       <PageTitle title="Create an Account" />
@@ -77,7 +83,11 @@ const Register = () => {
                 required={true}
               />
 
-              <Button type="submit">Create account</Button>
+              <Button type="submit" disabled={navigation.state === "submitting"}>
+                {navigation.state === "submitting" 
+                ? "Submitting..."
+                : "Create Account"}
+                </Button>
             </Form>
 
             <p className="text-bodyMedium text-light-onSurfaceVariant 
