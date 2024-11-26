@@ -67,6 +67,7 @@ const LinearProgress = ({ classes }) => {
                 transition={{
                     repeat: Infinity,
                     duration: 1.5,
+                    ease: [0.2, 0, 0, 1],
                 }}
                 className="active-indicator">
             </motion.div>
