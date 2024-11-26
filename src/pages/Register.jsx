@@ -1,5 +1,5 @@
 // NODE MODULES
-import { Link, Form, useNavigation } from "react-router-dom";
+import { Link, Form, useNavigation, useActionData } from "react-router-dom";
 
 // CUSTOM MODULES
 import { logoLight, logoDark, banner } from "../assets/assets";
@@ -8,8 +8,13 @@ import { logoLight, logoDark, banner } from "../assets/assets";
 import PageTitle from "../components/PageTitle";
 import TextField from "../components/TextField";
 import { Button } from "../components/Button";
+import CircularProgress from "../components/Progress";
 
 const Register = () => {
+  // GET ERROR DATA FROM FORM USING ACTION DATA
+  const error = useActionData();
+  console.log(error);
+  
 
   // GET NAVIGATION (LOADING/SUBMITTING)
   const navigation = useNavigation();
@@ -85,7 +90,7 @@ const Register = () => {
 
               <Button type="submit" disabled={navigation.state === "submitting"}>
                 {navigation.state === "submitting" 
-                ? "Submitting..."
+                ? <CircularProgress size="small"/>
                 : "Create Account"}
                 </Button>
             </Form>
