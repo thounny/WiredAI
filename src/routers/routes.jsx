@@ -8,6 +8,9 @@ import App from '../App.jsx';
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 
+// LOADERS
+import registerLoader from "./loaders/registerLoader";
+
 // ACTIONS
 import registerAction from "./actions/registerAction";
 import loginAction from "./actions/loginAction";
@@ -21,6 +24,7 @@ const router = createBrowserRouter([
     {
         path: '/register',
         element: <Register />,
+        loader: registerLoader,
         action: registerAction,
     },
     {
