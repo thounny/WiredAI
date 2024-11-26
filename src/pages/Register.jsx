@@ -1,8 +1,12 @@
 // NODE MODULES
 import { Link, Form, useNavigation, useActionData } from "react-router-dom";
+import { useEffect } from "react";
 
-// CUSTOM MODULES
+// ASSETS
 import { logoLight, logoDark, banner } from "../assets/assets";
+
+// CUSTOM HOOKS
+import { useSnackbar } from "../hooks/useSnackbar";
 
 // COMPONENTS
 import PageTitle from "../components/PageTitle";
@@ -13,13 +17,19 @@ import CircularProgress from "../components/Progress";
 const Register = () => {
   // GET ERROR DATA FROM FORM USING ACTION DATA
   const error = useActionData();
-  console.log(error);
   
 
   // GET NAVIGATION (LOADING/SUBMITTING)
   const navigation = useNavigation();
-  console.log(navigation.state);
+
+  const { showSnackbar } = useSnackbar();
   
+  useEffect(() => {
+  // SHOW SNACKBAR IF ERROR EXISTS
+  if (error?.message) {
+    showSnackbar({ message: error.message, type: "error" });
+  }
+  }, [error, showSnackbar]);
 
   return (
     <>
