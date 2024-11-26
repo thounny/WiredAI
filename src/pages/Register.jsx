@@ -1,6 +1,7 @@
 // NODE MODULES
 import { Link, Form, useNavigation, useActionData } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 // ASSETS
 import { logoLight, logoDark, banner } from "../assets/assets";
@@ -146,7 +147,13 @@ const Register = () => {
           </p>
         </div>
       </div>
-      <LinearProgress classes="absolute top-0 left-0 right-0" />
+
+
+      <AnimatePresence>
+      {navigation.state === "loading" && (
+          <LinearProgress classes="absolute top-0 left-0 right-0" />
+      )}
+      </AnimatePresence>
     </>
   );
 };
