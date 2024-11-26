@@ -10,6 +10,7 @@ import Login from "../pages/Login.jsx";
 
 // LOADERS
 import registerLoader from "./loaders/registerLoader";
+import loginLoader from "./loaders/loginLoader";
 
 // ACTIONS
 import registerAction from "./actions/registerAction";
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+        loader: loginLoader,
         action: loginAction,
     },
 ]);
