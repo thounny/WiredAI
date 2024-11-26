@@ -7,9 +7,8 @@ import { account } from "../../lib/appwrite";
 const loginLoader = async () => {
     try {
         // RETRIEVE CURRENT USER ACCOUNT DATA
-        const user = await account.get();
-        console.log(user);
-    } catch (err) {
+        await account.get();
+        } catch (err) {
         console.log(`Error getting user session: ${err.message}`);
         return null;
     }
