@@ -12,7 +12,7 @@ import { useSnackbar } from "../hooks/useSnackbar";
 import PageTitle from "../components/PageTitle";
 import TextField from "../components/TextField";
 import { Button } from "../components/Button";
-import CircularProgress from "../components/Progress";
+import { CircularProgress, LinearProgress } from "../components/Progress";
 
 const Register = () => {
   // GET ERROR DATA FROM FORM USING ACTION DATA
@@ -146,6 +146,7 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <LinearProgress classes="absolute top-0 left-0 right-0" />
     </>
   );
 };
