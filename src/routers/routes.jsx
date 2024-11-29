@@ -8,6 +8,7 @@ import App from '../App.jsx';
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import ResetLink from "../pages/ResetLink.jsx";
+import ResetPassword from "../pages/ResetPassword.jsx";
 
 // LOADERS
 import registerLoader from "./loaders/registerLoader";
@@ -17,6 +18,7 @@ import loginLoader from "./loaders/loginLoader";
 import registerAction from "./actions/registerAction";
 import loginAction from "./actions/loginAction";
 import resetLinkAction from "./actions/resetLinkAction";
+import resetPasswordAction from "./actions/resetPasswordAction";
 
 // ROUTER
 const router = createBrowserRouter([
@@ -41,6 +43,11 @@ const router = createBrowserRouter([
         element: <ResetLink />,
         action: resetLinkAction,
     },
+    {
+        path: "/reset-password",
+        element: <ResetPassword />,
+        action: resetPasswordAction,
+    }
 ]);
 
 export default router;
