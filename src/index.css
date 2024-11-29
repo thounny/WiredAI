@@ -281,10 +281,10 @@
   }
 
   .snackbar.error {
-    @apply bg-light-errorContainer
-    dark:bg-dark-errorContainer
+    @apply bg-light-error
+    dark:bg-dark-error
     dark:text-dark-onError
-    text-light-onErrorContainer;
+    text-light-onError;
   }
 }
 
