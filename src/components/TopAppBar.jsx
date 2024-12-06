@@ -53,7 +53,7 @@ const TopAppBar = () => {
                 <Avatar name="Thounny"/>
             </IconBtn>
 
-            <Menu>
+            <Menu classes="active">
                 <MenuItem labelText="Log out"/>
             </Menu>
         </div>
