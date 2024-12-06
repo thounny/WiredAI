@@ -35,7 +35,7 @@ const IconBtn = ({ classes = "", icon, size = "", children, ...rest }) => {
             {children}
 
             {!children && (
-                <span className={`material-symbols-rounded icon-${size}`}>
+                <span className="material-symbols-rounded icon">
                     {icon}
                 </span>
             )}
