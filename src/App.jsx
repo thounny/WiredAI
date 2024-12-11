@@ -1,8 +1,16 @@
 // COMPONENTS
 import PageTitle from "./components/PageTitle";
 import TopAppBar from "./components/TopAppBar";
+import Sidebar from "./components/Sidebar";
+
+// CUSTOM HOOKS
+import { useToggle } from "./hooks/useToggle";
 
 const App = () => {
+
+  // TOGGLE SIDEBAR
+  const [isSidebarOpen, toggleSidebar] = useToggle();
+
   return (
     <>
     {/* Meta Title */}
@@ -10,10 +18,11 @@ const App = () => {
 
     <div className="">
       {/* Sidebar */}
+      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
 
       <div className="">
         {/* Top app bar */}
-        <TopAppBar />
+        <TopAppBar toggleSidebar={toggleSidebar}/>
 
         {/* Main content */}
         <div className="">

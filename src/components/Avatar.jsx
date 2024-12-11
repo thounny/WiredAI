@@ -17,7 +17,7 @@ const Avatar = ({name}) => {
     )
 }
 
-Avatar.PropTypes = {
+Avatar.propTypes = {
     name: PropTypes.string
 }
 
