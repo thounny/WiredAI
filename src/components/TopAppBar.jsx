@@ -1,6 +1,6 @@
 // NODE MODULES
 import { useNavigation, useNavigate, useLoaderData } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
 // CUSTOM MODULES
@@ -15,17 +15,17 @@ import Avatar from "./Avatar";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import Logo from "./Logo";
+import LinearProgress from "@mui/material/LinearProgress"; // Ensure correct import
 
-const TopAppBar = ({toggleSidebar}) => {
-
-    //  PROVIDES NAVIGATION STATE (LOADING/SUBMITTING)
+const TopAppBar = ({ toggleSidebar }) => {
+    // PROVIDES NAVIGATION STATE (LOADING/SUBMITTING)
     const navigation = useNavigation();
 
     // FUNCTION TO NAVIGATE BETWEEN PAGES
     const navigate = useNavigate();
 
     // USER DATA FOR TOP APP BAR
-    const { user } = useLoaderData();    
+    const { user } = useLoaderData();
 
     // TOGGLE MENU
     const [showMenu, setShowMenu] = useToggle();
@@ -34,39 +34,48 @@ const TopAppBar = ({toggleSidebar}) => {
     const isNormalLoad = navigation.state === "loading" && !navigation.formData;
 
     return (
-    <header className="relative flex justify-between items-center h-16 px-4">
-        <div className="flex items-center gap-1">
-            <IconBtn 
-            icon="menu" 
-            title="Menu"
-            classes="lg:hidden"
-            onClick={toggleSidebar}
-            />
+        <header className="relative flex justify-between items-center h-16 px-4">
+            <div className="flex items-center gap-1">
+                <IconBtn 
+                    icon="menu" 
+                    title="Menu"
+                    classes="lg:hidden"
+                    onClick={toggleSidebar}
+                />
 
-            <Logo classes="lg:hidden"/>
-            
-        </div>
+                <Logo classes="lg:hidden" />
+            </div>
 
-        <div className="menu-wrapper">
-            <IconBtn onClick={setShowMenu}>
-                <Avatar name={user.name}/>
-            </IconBtn>
+            <div className="menu-wrapper">
+                <IconBtn onClick={setShowMenu}>
+                    <Avatar name={user.name} />
+                </IconBtn>
 
-            <Menu classes={showMenu ? "active" : ""}>
-                <MenuItem labelText="Log out" onClick={() => {
-                    logout(navigate);
-                }}/>
-            </Menu>
-        </div>
+                <Menu classes={showMenu ? "active" : ""}>
+                    <MenuItem 
+                        labelText="Log out" 
+                        onClick={() => logout(navigate)}
+                    />
+                </Menu>
+            </div>
 
-        <AnimatePresence>{isNormalLoad && <LinearProgress />}
-        </AnimatePresence>
-    </header>
+            {/* Show LinearProgress when page is loading */}
+            {isNormalLoad && (
+                <motion.div 
+                    className="absolute top-0 left-0 w-full"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                >
+                    <LinearProgress />
+                </motion.div>
+            )}
+        </header>
     );
 };
 
 TopAppBar.propTypes = {
     toggleSidebar: PropTypes.func,
-}
+};
 
-export default TopAppBar
+export default TopAppBar;
