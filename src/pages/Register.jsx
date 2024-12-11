@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // ASSETS
-import { logoLight, logoDark, banner } from "../assets/assets";
+import { banner } from "../assets/assets";
 
 // CUSTOM HOOKS
 import { useSnackbar } from "../hooks/useSnackbar";
@@ -14,6 +14,7 @@ import PageTitle from "../components/PageTitle";
 import TextField from "../components/TextField";
 import { Button } from "../components/Button";
 import { CircularProgress, LinearProgress } from "../components/Progress";
+import Logo from "../components/Logo";
 
 const Register = () => {
   // GET ERROR DATA FROM FORM USING ACTION DATA
@@ -36,26 +37,12 @@ const Register = () => {
     <>
       <PageTitle title="Create an Account" />
       <div
-        className="relative w-screen h-dvh p-2 grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] lg:gap-2"
+        className="relative w-screen h-dvh p-2 
+        grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] lg:gap-2"
       >
         {/* Left Section */}
         <div className="flex flex-col p-4">
-          <Link to="/" className="max-w-max mb-auto mx-auto lg:mx-0">
-            <img
-              src={logoLight}
-              width={133}
-              height={23}
-              alt="WiredAI logo (light)"
-              className="dark:hidden"
-            />
-            <img
-              src={logoDark}
-              width={133}
-              height={23}
-              alt="WiredAI logo (dark)"
-              className="hidden dark:block"
-            />
-          </Link>
+          <Logo classes="mb-auto mx-auto lg:mx-0"/>
 
           <div
             className="flex flex-col gap-2 max-w-[480px]
