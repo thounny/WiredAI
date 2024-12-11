@@ -9,6 +9,7 @@ import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import ResetLink from "../pages/ResetLink.jsx";
 import ResetPassword from "../pages/ResetPassword.jsx";
+import Conversation from "../pages/Conversation.jsx";
 
 // LOADERS
 import registerLoader from "./loaders/registerLoader";
@@ -23,6 +24,7 @@ import loginAction from "./actions/loginAction";
 import resetLinkAction from "./actions/resetLinkAction";
 import resetPasswordAction from "./actions/resetPasswordAction";
 import appAction from "./actions/appAction";
+import conversationLoader from "./loaders/conversationLoader.js";
 
 // ROUTER
 const router = createBrowserRouter([
@@ -31,6 +33,13 @@ const router = createBrowserRouter([
         element: <App />,
         loader: appLoader,
         action: appAction,
+        children: [
+            {
+                path: "/:conversationId",
+                element: <Conversation />,
+                loader: conversationLoader,
+            }
+        ]
     },
     {
         path: '/register',
