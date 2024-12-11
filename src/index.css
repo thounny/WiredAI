@@ -105,7 +105,6 @@
       pointer-events-none
       select-none
       transition-colors
-      transition-transform
       duration-short4
       ease-standard;
   }
@@ -361,7 +360,7 @@
     scale-75
     opacity-0
     invisible
-    transition-[transform, opacity, visibility]
+    transition-[transform,opacity,visibility]
     duration-short4
     ease-standard;
   }
