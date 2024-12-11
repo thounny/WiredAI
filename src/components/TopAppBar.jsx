@@ -1,6 +1,9 @@
 // NODE MODULES
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigation, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+
+// CUSTOM MODULES
+import logout from "../utils/logout";
 
 // CUSTOM HOOKS
 import { useToggle } from "../hooks/useToggle";
@@ -16,7 +19,11 @@ import {logoLight, logoDark} from "../assets/assets";
 
 const TopAppBar = () => {
 
+    //  PROVIDES NAVIGATION STATE (LOADING/SUBMITTING)
     const navigation = useNavigation();
+
+    // FUNCTION TO NAVIGATE BETWEEN PAGES
+    const navigate = useNavigate();
 
     // TOGGLE MENU
     const [showMenu, setShowMenu] = useToggle();
@@ -61,9 +68,14 @@ const TopAppBar = () => {
             </IconBtn>
 
             <Menu classes={showMenu ? "active" : ""}>
-                <MenuItem labelText="Log out"/>
+                <MenuItem labelText="Log out" onClick={() => {
+                    logout(navigate);
+                }}/>
             </Menu>
         </div>
+
+        <AnimatePresence>{isNormalLoad && <LinearProgress />}
+        </AnimatePresence>
     </header>
     );
 };
