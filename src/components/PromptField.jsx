@@ -21,7 +21,7 @@ const PromptField = () => {
     // STATE TO DETERMINE IF PLACEHOLDER SHOULD BE SHOWN
     const [placeholderShown, setPlaceholderShown] = useState(true);
     const [isMultiline, setIsMultiline] = useState(false);
-    const [inputValue, setInputValue] = "";
+    const [inputValue, setInputValue] = useState("");
 
     // HANDLE INPUT FIELD INPUT CHANGE
     const handleInputChange = useCallback(() => {
