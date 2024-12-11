@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                     <ExtendedFab 
                         href="/" 
                         text="New chat"
-                        classes=""
+                        classes="mb-4"
                         onClick={toggleSidebar}
                     />
 
