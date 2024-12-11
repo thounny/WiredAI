@@ -7,6 +7,8 @@ const userPromptAction = async (formData) => {
     // GET CURRENT USER ACCOUNT DATA
     const user = await account.get();
 
+    // GET A CONVERSATION TITLE BASED ON THE USER PROMPT
+
     return null;
 };
 
