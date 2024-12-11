@@ -1,7 +1,11 @@
+// NODE MODULES
+import { redirect } from "react-router-dom";
+
 // CUSTOM MODULES
 import { account, databases } from "../../lib/appwrite";
 import { getConversationTitle, getAiResponse } from "../../api/googleAi";
 import generateID from "../../utils/generateID";
+
 
 const userPromptAction = async (formData) => {
     const userPrompt = formData.get("user_prompt");
@@ -47,7 +51,7 @@ const userPromptAction = async (formData) => {
     } catch (err) {
         console.log(`Error generating AI response: ${err.message}`);
     }
-    return null;
+    return redirect(`/${conversation.$id}`);
 };
 
 // HANDLE INCOMING REQUEST BASED ON REQUEST METHOD
