@@ -1,6 +1,7 @@
 // NODE MODULES
-import { Link, useNavigation, useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigation, useNavigate, useLoaderData } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
 
 // CUSTOM MODULES
 import logout from "../utils/logout";
@@ -13,11 +14,9 @@ import { IconBtn } from "./Button";
 import Avatar from "./Avatar";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
+import Logo from "./Logo";
 
-// ASSETS
-import {logoLight, logoDark} from "../assets/assets";
-
-const TopAppBar = () => {
+const TopAppBar = ({toggleSidebar}) => {
 
     //  PROVIDES NAVIGATION STATE (LOADING/SUBMITTING)
     const navigation = useNavigation();
@@ -41,28 +40,11 @@ const TopAppBar = () => {
             icon="menu" 
             title="Menu"
             classes="lg:hidden"
+            onClick={toggleSidebar}
             />
 
-            <Link 
-            to="/" 
-            className="min-w-max max-w-max h-[24px] lg:hidden"
-            >
-                <img 
-                src={logoLight} 
-                width={133} 
-                height={24} 
-                alt="WiredAI logo" 
-                className="dark:hidden" 
-                />
-
-                <img 
-                src={logoDark} 
-                width={133} 
-                height={24} 
-                alt="WiredAI logo" 
-                className="hidden dark:block" 
-                />
-            </Link>
+            <Logo classes="lg:hidden"/>
+            
         </div>
 
         <div className="menu-wrapper">
@@ -82,5 +64,9 @@ const TopAppBar = () => {
     </header>
     );
 };
+
+TopAppBar.propTypes = {
+    toggleSidebar: PropTypes.func,
+}
 
 export default TopAppBar
