@@ -6,6 +6,7 @@ import PageTitle from "./components/PageTitle";
 import TopAppBar from "./components/TopAppBar";
 import Sidebar from "./components/Sidebar";
 import Greetings from "./pages/Greetings";
+import PromptField from "./components/PromptField";
 
 // CUSTOM HOOKS
 import { useToggle } from "./hooks/useToggle";
@@ -38,6 +39,8 @@ const App = () => {
         {/* Prompt field */}
         <div className="bg-light-background dark:bg-dark-background">
           <div className="max-w-[870px] px-5 w-full mx-auto">
+          <PromptField />
+
           <motion.p 
           initial={{ opacity: 0, translateY: "-4px" }}
           animate={{ opacity: 1, translateY: 0 }}
