@@ -13,8 +13,8 @@ const PromptField = () => {
 
     // STATE TO DETERMINE IF PLACEHOLDER SHOULD BE SHOWN
     const [placeholderShown, setPlaceholderShown] = useState(true);
-
     const [isMultiline, setIsMultiline] = useState(false);
+    const [inputValue, setInputValue] = "";
 
     // HANDLE INPUT FIELD INPUT CHANGE
     const handleInputChange = useCallback(() => {
@@ -22,7 +22,35 @@ const PromptField = () => {
 
         setPlaceholderShown(!inputField.current.innerText);
         setIsMultiline(inputFieldContainer.current.clientHeight > 64);
+        setInputValue(inputField.current.innerText.trim());
     }, []);
+
+    // MOVE CURSOR TO THE END OF THE INPUT FIELD
+    const moveCursorToEnd = useCallback(() => {
+        const editableElem = inputField.current;
+        const range = document.createRange();
+        const selection = window.getSelection();
+
+        // SET RANGE TO LAST CHILD OF INPUT FIELD
+        range.selectNodeContents(editableElem);
+            // COLLAPSE RANGE TO END
+        range.collapse(false);
+        
+        // CLEAR EXISTING SELECTION AND ADD NEW RANGE
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }, []);
+
+    // HANDLE PASTED TEXT
+    const handlePaste = useCallback(
+        (e) => {
+            e.preventDefault();
+            inputField.current.innerText += e.clipboardData.getData("text");
+            handleInputChange();
+            moveCursorToEnd();
+        }, 
+    [handleInputChange, moveCursorToEnd],
+);
 
     // FRAMER MOTION VARIANTS FOR PROMPT FIELD ANIMATION
     const promptFieldVariant = {
@@ -62,6 +90,7 @@ return (
             variants={promptFieldChildrenVariant}
             ref={inputField}
             onInput={handleInputChange}
+            onPaste={handlePaste}
         />
 
         <IconBtn 
