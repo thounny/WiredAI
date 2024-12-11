@@ -1,6 +1,6 @@
 // NODE MODULES
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // COMPONENTS
@@ -9,6 +9,11 @@ import { ExtendedFab } from "./Button";
 import { IconBtn } from "./Button";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+    // EXTRACT CONVERSATIONS FROM LOADER DATA IF EXISTS
+    const { conversations: {documents: conversationData}, 
+    } = useLoaderData() || {};
+    console.log(conversationData);
+    
     return (
         <>
             <motion.div 
@@ -33,33 +38,39 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                         px-4">Recent</p>
 
                         <nav>
-                            <div className="relative group">
-                            <NavLink 
-                                to="" 
-                                className="nav-link"
-                                title=""
-                                onClick={toggleSidebar}
-                                >
-                                <span
-                                    className="material-symbols-rounded icon-small">
-                                        chat_bubble
-                                    </span>
+                            {conversationData.map((item) => (
+                                 <div 
+                                    key={item.$id} 
+                                    className="relative group"
+                                 >
 
-                                    <span className="truncate">New Conversation</span>
-
-                                    <div className="state-layer"></div>
-                            </NavLink>
-
-                            <IconBtn
-                                icon="delete"
-                                size="small"
-                                classes="absolute top-1/2
-                                right-1.5 -translate-y-1/2 z-10 opacity-0
-                                group-hover:opacity-100 
-                                group:focus-within:opacity-100 hidden lg:grid" 
-                                title="Delete"
-                            />
-                            </div>
+                                 <NavLink 
+                                     to={item.$id}
+                                     className="nav-link"
+                                     title={item.title}
+                                     onClick={toggleSidebar}
+                                     >
+                                     <span
+                                         className="material-symbols-rounded icon-small">
+                                             chat_bubble
+                                         </span>
+     
+                                         <span className="truncate">{item.title}</span>
+     
+                                         <div className="state-layer"></div>
+                                 </NavLink>
+     
+                                 <IconBtn
+                                     icon="delete"
+                                     size="small"
+                                     classes="absolute top-1/2
+                                     right-1.5 -translate-y-1/2 z-10 opacity-0
+                                     group-hover:opacity-100 
+                                     group:focus-within:opacity-100 hidden lg:grid" 
+                                     title="Delete"
+                                 />
+                                 </div>
+                            ))}
                         </nav>
                     </div>  
 
