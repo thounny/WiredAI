@@ -1,7 +1,7 @@
 // NODE MODULES
-import { button } from "framer-motion/client";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // BUTTON COMPONENT
 const Button = ({
@@ -31,7 +31,8 @@ Button.propTypes = {
 // ICON BUTTON
 const IconBtn = ({ classes = "", icon, size = "", children, ...rest }) => {
     return (
-        <button className={`icon-btn ${size} ${classes}`} {...rest}>
+        <motion.button
+            className={`icon-btn ${size} ${classes}`} {...rest}>
 
             {children}
 
@@ -42,7 +43,7 @@ const IconBtn = ({ classes = "", icon, size = "", children, ...rest }) => {
             )}
 
             <div className="state-layer"></div>
-        </button>
+        </motion.button>
     )
 }
 
