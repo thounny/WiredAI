@@ -16,7 +16,7 @@ const App = () => {
     {/* Meta Title */}
     <PageTitle title="WiredAI - Step Into The Wired, Create the Future" />
 
-    <div className="">
+    <div className="lg:grid lg:grid-cols-[320px,1fr]">
       {/* Sidebar */}
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
 
