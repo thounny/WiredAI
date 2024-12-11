@@ -1,9 +1,10 @@
 // NODE MODULES
 
 import { redirect } from "react-router-dom";
+import { Query } from "appwrite";
 
 // CUSTOM MODULES
-import { account } from "../../lib/appwrite";
+import { account, databases } from "../../lib/appwrite";
 
 const appLoader = async () => {
     const data = {};
@@ -15,6 +16,20 @@ const appLoader = async () => {
         
         // REDIRECT TO LOGIN PAGE
         return redirect("/login");
+    }
+
+    try {
+        data.conversations = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            "conversations",
+            [
+                Query.select(["$id", "title"]),
+                Query.orderDesc("$createdAt"),
+                Query.equal("user_id", data.user.$id),
+            ]
+        );
+    } catch (err) {
+        console.log(`Error getting user conversations: ${err.message}`);
     }
 
     return data;
