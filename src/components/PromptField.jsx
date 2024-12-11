@@ -14,9 +14,14 @@ const PromptField = () => {
     // STATE TO DETERMINE IF PLACEHOLDER SHOULD BE SHOWN
     const [placeholderShown, setPlaceholderShown] = useState(true);
 
+    const [isMultiline, setIsMultiline] = useState(false);
+
     // HANDLE INPUT FIELD INPUT CHANGE
     const handleInputChange = useCallback(() => {
+        if (inputField.current.innerText === "\n") inputField.current.innerText = "";
+
         setPlaceholderShown(!inputField.current.innerText);
+        setIsMultiline(inputFieldContainer.current.clientHeight > 64);
     }, []);
 
     // FRAMER MOTION VARIANTS FOR PROMPT FIELD ANIMATION
@@ -41,7 +46,7 @@ const PromptField = () => {
 
 return (
     <motion.div 
-    className="prompt-field-container"
+    className={`prompt-field-container ${isMultiline ? "rounded-large" : ""}`}
     variants={promptFieldVariant}
     initial="hidden"
     animate="visible"
