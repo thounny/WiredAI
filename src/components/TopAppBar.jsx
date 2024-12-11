@@ -1,5 +1,5 @@
 // NODE MODULES
-import { Link, useNavigation, useNavigate } from "react-router-dom";
+import { Link, useNavigation, useNavigate, useLoaderData } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 // CUSTOM MODULES
@@ -24,6 +24,9 @@ const TopAppBar = () => {
 
     // FUNCTION TO NAVIGATE BETWEEN PAGES
     const navigate = useNavigate();
+
+    // USER DATA FOR TOP APP BAR
+    const { user } = useLoaderData();    
 
     // TOGGLE MENU
     const [showMenu, setShowMenu] = useToggle();
@@ -64,7 +67,7 @@ const TopAppBar = () => {
 
         <div className="menu-wrapper">
             <IconBtn onClick={setShowMenu}>
-                <Avatar name="Thounny"/>
+                <Avatar name={user.name}/>
             </IconBtn>
 
             <Menu classes={showMenu ? "active" : ""}>
