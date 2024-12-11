@@ -1,5 +1,6 @@
 // CUSTOM MODULES
 import { account } from "../../lib/appwrite";
+import { getConversationTitle } from "../../api/googleAi";
 
 const userPromptAction = async (formData) => {
     const userPrompt = formData.get("user_prompt");
@@ -8,6 +9,9 @@ const userPromptAction = async (formData) => {
     const user = await account.get();
 
     // GET A CONVERSATION TITLE BASED ON THE USER PROMPT
+    const conversationTitle = await getConversationTitle(userPrompt);
+    console.log(conversationTitle);
+    
 
     return null;
 };
