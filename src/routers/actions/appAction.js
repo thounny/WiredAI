@@ -1,6 +1,6 @@
 // CUSTOM MODULES
 import { account, databases } from "../../lib/appwrite";
-import { getConversationTitle } from "../../api/googleAi";
+import { getConversationTitle, getAiResponse } from "../../api/googleAi";
 import generateID from "../../utils/generateID";
 
 const userPromptAction = async (formData) => {
@@ -15,7 +15,7 @@ const userPromptAction = async (formData) => {
     
     try {
         // CREATE A NEW CONVERSATION DOCUMENT IN APPWRITE DATABASE
-        await databases.createDocument(
+        conversation = await databases.createDocument(
             import.meta.env.VITE_APPWRITE_DATABASE_ID,
             "conversations",
             generateID(),
@@ -28,6 +28,25 @@ const userPromptAction = async (formData) => {
         console.log(`Error getting conversation title: ${err.message}`);
     }
 
+    // GENERATE AI RESPONSE BASED ON USER PROMPT
+    const aiResponse = await getAiResponse(userPrompt);
+    
+    try {
+        // CREATE A NEW MESSAGE DOCUMENT IN "CHATS" COLLECTION
+        await databases.createDocument(
+            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            "chats",
+            generateID(),
+            {
+                user_prompt: userPrompt, 
+                ai_response: aiResponse,
+                conversations: conversation.$id,
+            }
+        )
+
+    } catch (err) {
+        console.log(`Error generating AI response: ${err.message}`);
+    }
     return null;
 };
 
