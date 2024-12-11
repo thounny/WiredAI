@@ -1,5 +1,9 @@
 // NODE MODULES
 import { Link, useNavigation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+
+// CUSTOM HOOKS
+import { useToggle } from "../hooks/useToggle";
 
 // COMPONENTS
 import { IconBtn } from "./Button";
@@ -13,6 +17,9 @@ import {logoLight, logoDark} from "../assets/assets";
 const TopAppBar = () => {
 
     const navigation = useNavigation();
+
+    // TOGGLE MENU
+    const [showMenu, setShowMenu] = useToggle();
 
     // CHECK IF PAGE IS LOADING
     const isNormalLoad = navigation.state === "loading" && !navigation.formData;
@@ -49,11 +56,11 @@ const TopAppBar = () => {
         </div>
 
         <div className="menu-wrapper">
-            <IconBtn>
+            <IconBtn onClick={setShowMenu}>
                 <Avatar name="Thounny"/>
             </IconBtn>
 
-            <Menu classes="active">
+            <Menu classes={showMenu ? "active" : ""}>
                 <MenuItem labelText="Log out"/>
             </Menu>
         </div>
