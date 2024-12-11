@@ -1,6 +1,7 @@
 // NODE MODULES
-import { motion, stagger } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useCallback, useState } from "react";
+import { useSubmit, useNavigation } from "react-router-dom";
 
 // COMPONENTS
 import { IconBtn } from "./Button";
@@ -10,6 +11,12 @@ const PromptField = () => {
     // INPUTFIELD AND INPUTFIELD CONTAINER HOLD REFERENCES TO DOM ELEMENTS
     const inputField = useRef();
     const inputFieldContainer = useRef();
+
+    // MANUAL FORM SUBMISSION
+    const submit = useSubmit();
+
+    // INITAL NAVIGATION FOR CHECKING IF PAGE IS LOADING
+    const navigation = useNavigation();
 
     // STATE TO DETERMINE IF PLACEHOLDER SHOULD BE SHOWN
     const [placeholderShown, setPlaceholderShown] = useState(true);
@@ -52,6 +59,25 @@ const PromptField = () => {
     [handleInputChange, moveCursorToEnd],
 );
 
+    // HANDLE KEYDOWN EVENT
+    const handleSubmit = useCallback((e) => {
+        // PREVENT DEFAULT BEHAVIOR IF INPUT FIELD IS EMPTY
+        if (!inputValue || navigation.state === "submitting") 
+            return;
+
+        submit({
+            user_prompt: inputValue,
+            request_type: "user_prompt"
+        }, {
+            method: "POST",
+            encType: "application/x-www-form-urlencoded",
+            action: "/",
+        })
+
+        inputField.current.innerText = "";
+        handleInputChange();
+    }, [handleInputChange, inputValue, navigation.state, submit]);
+
     // FRAMER MOTION VARIANTS FOR PROMPT FIELD ANIMATION
     const promptFieldVariant = {
         hidden: { scaleX: 0},
@@ -91,6 +117,14 @@ return (
             ref={inputField}
             onInput={handleInputChange}
             onPaste={handlePaste}
+            onKeyDown={(e) => {
+                // HANDLE CASE WHERE ENTER KEY IS PRESSED
+                if (e.key === "Enter" && !e.shiftKey) {
+                    // SUBMIT PROMPT
+                    e.preventDefault();
+                    handleSubmit();
+                }
+            } }
         />
 
         <IconBtn 
@@ -99,6 +133,7 @@ return (
             size="large" 
             classes="ms-auto" 
             variants={promptFieldChildrenVariant}
+            onClick={handleSubmit}
         />
 
         <div className="state-layer"></div>
