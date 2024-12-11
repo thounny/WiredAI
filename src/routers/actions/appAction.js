@@ -1,6 +1,7 @@
 // CUSTOM MODULES
-import { account } from "../../lib/appwrite";
+import { account, databases } from "../../lib/appwrite";
 import { getConversationTitle } from "../../api/googleAi";
+import generateID from "../../utils/generateID";
 
 const userPromptAction = async (formData) => {
     const userPrompt = formData.get("user_prompt");
@@ -10,8 +11,22 @@ const userPromptAction = async (formData) => {
 
     // GET A CONVERSATION TITLE BASED ON THE USER PROMPT
     const conversationTitle = await getConversationTitle(userPrompt);
-    console.log(conversationTitle);
+    let conversation = null;
     
+    try {
+        // CREATE A NEW CONVERSATION DOCUMENT IN APPWRITE DATABASE
+        await databases.createDocument(
+            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            "conversations",
+            generateID(),
+            {
+                title: conversationTitle,
+                user_id: user.$id,
+            },
+        );
+    } catch (err) {
+        console.log(`Error getting conversation title: ${err.message}`);
+    }
 
     return null;
 };
