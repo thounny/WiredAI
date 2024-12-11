@@ -1,6 +1,7 @@
 // NODE MODULES
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // COMPONENTS
 import Logo from "./Logo";
@@ -10,7 +11,11 @@ import { IconBtn } from "./Button";
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     return (
         <>
-            <div className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
+            <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{opacity: 1}}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
                 <div className="sidebar-inner">
                     <div className="h-16 grid items-center px-4 mb-4">
                         <Logo />
@@ -65,7 +70,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                         &copy; 2024 thounny
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <div className={`overlay ${isSidebarOpen ? "active" : ""}`}
                 onClick={toggleSidebar}
