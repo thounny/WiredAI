@@ -16,7 +16,11 @@ const Conversation = () => {
         {/* Meta Title */}
         <PageTitle title={`${title} | WiredAI`} />
 
-        <motion.div className="">
+        <motion.div className="max-w-[700px] mx-auto !will-change-auto" 
+        initial={{ opacity: 0 }} 
+        animate={{opacity: 1}}
+        transition={{  duration: 0.2, delay: 0.05, ease: "easeOut" }}
+        >
             {chats.map((chat) => (
                 <div key={chat.$id}>
                     {/* USER PROMPT */}
