@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 
 // Circular Progress Bar
-const CircularProgress = ({ classes, size }) => {
+const CircularProgress = ({ classes = '', size = '' }) => {
     return (
         <div 
             role="progressbar"
@@ -19,13 +19,8 @@ CircularProgress.propTypes = {
     size: PropTypes.string,
 };
 
-CircularProgress.defaultProps = {
-    classes: '',
-    size: '',
-};
-
 // LINEAR PROGRESS
-const LinearProgress = ({ classes }) => {
+const LinearProgress = ({ classes = '' }) => {
     // DEFINE FRAMER MOTION VARIANTS
     const progressbarVariant = {
         start: { scaleY: 0 },
@@ -77,10 +72,6 @@ const LinearProgress = ({ classes }) => {
 
 LinearProgress.propTypes = {
     classes: PropTypes.string,
-};
-
-LinearProgress.defaultProps = {
-    classes: '',
 };
 
 export { CircularProgress, LinearProgress };
