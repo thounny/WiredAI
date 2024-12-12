@@ -12,6 +12,9 @@ import { IconBtn } from "./Button";
 // ASSETS
 import { iconLogo } from "../assets/assets";
 
+// CUSTOM MODULES
+import toTitleCase from "../utils/toTitleCase";
+
 
 
 const AiResponse = ({ aiResponse, children }) => {
@@ -36,7 +39,8 @@ const AiResponse = ({ aiResponse, children }) => {
         return match ? (
             <>
                 <div className="code-block">
-                    <div className="p-4 pb-0 font-sans">{match[0]}</div>
+                    <div className="p-4 pb-0 font-sans">
+                        {toTitleCase(match[1])}</div>
 
                     <SyntaxHighlighter
                     {...rest}
