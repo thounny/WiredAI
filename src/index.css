@@ -690,6 +690,16 @@
   .markdown-content .code-block * {
     @apply !bg-inherit;
   }
+
+  /* SKELETON */
+  .skeleton {
+    @apply h-4
+    w-full
+    bg-light-surfaceContainerHighest
+    dark:bg-dark-surfaceContainerHighest
+    my-3
+    rounded-extraSmall;
+  }
 }
 
 /* UTILITIES */
