@@ -62,7 +62,8 @@ const TopAppBar = ({ toggleSidebar }) => {
             {/* Show LinearProgress when page is loading */}
             {isNormalLoad && (
                 <motion.div 
-                    className="absolute top-0 left-0 w-full"
+                    className="absolute top-full left-0
+                right-0 z-10"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
