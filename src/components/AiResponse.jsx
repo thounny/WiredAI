@@ -1,9 +1,8 @@
-// NODE MODULES
 import PropTypes from "prop-types";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { hopscotch, coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { hopscotch, coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useState, useEffect, useCallback } from "react";
 
 // COMPONENTS
@@ -15,131 +14,130 @@ import { iconLogo } from "../assets/assets";
 // CUSTOM MODULES
 import toTitleCase from "../utils/toTitleCase";
 
-
+// CUSTOM HOOKS
+import { useSnackbar } from "../hooks/useSnackbar";
 
 const AiResponse = ({ aiResponse, children }) => {
-
-    // INITIALIZE CODE THEME STATE TO EMPTY STRING
     const [codeTheme, setCodeTheme] = useState("");
+    const { showSnackbar, hideSnackbar } = useSnackbar();
 
-    // USE EFFECT TO DETECT USER'S PREFERRED CODE THEME
     useEffect(() => {
-        // CREATE MEDIA QUERY TO DETECT USER'S PREFERRED CODE THEME
-        const mediaQuery = window.matchMedia
-        ('(prefers-color-scheme: dark)');
-
-        // INITIALLY SET CODE THEME BASED ON CURRENT MEDIA QUERY
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
         setCodeTheme(mediaQuery.matches ? hopscotch : coy);
 
-        // CREATE EVENT LISTENER TO UPDATE CODE THEME WHEN MEDIA QUERY CHANGES
-        const themeListener = mediaQuery.addEventListener("change"
-            , (event) => {
-                setCodeTheme(event.matches ? hopscotch : coy);
-            });
+        const themeListener = (event) => {
+            setCodeTheme(event.matches ? hopscotch : coy);
+        };
 
-            // CLEANUP FUNCTION TO REMOVE EVENT LISTENER
-            return () => mediaQuery.removeEventListener("change"
-            , themeListener);
+        mediaQuery.addEventListener("change", themeListener);
+        return () => mediaQuery.removeEventListener("change", themeListener);
     }, []);
 
-    const handleCopy = useCallback(async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
+    const handleCopy = useCallback(
+        async (text) => {
+            hideSnackbar();
+            try {
+                await navigator.clipboard.writeText(text);
+                showSnackbar({
+                    message: "Code copied to clipboard!",
+                    timeOut: 2500,
+                });
+            } catch (err) {
+                showSnackbar({
+                    message: `Error: ${err.message}`,
+                });
+                console.error(`Error copying text to clipboard: ${err.message}`);
+            }
+        },
+        [showSnackbar, hideSnackbar]
+    );
 
-        } catch (err) {
-            console.log(`Error copying code: ${err.message}`);
-        }
-        
-    }, []);
-
-    // FUNCTION EXECUTES FOR EVERY CODE TAG
     const code = ({ children, className, ...rest }) => {
         const match = className?.match(/language-(\w+)/);
 
         return match ? (
             <>
                 <div className="code-block">
-                    <div className="p-4 pb-0 font-sans">
-                        {toTitleCase(match[1])}</div>
+                    <div className="p-4 pb-0 font-sans">{toTitleCase(match[1])}</div>
 
                     <SyntaxHighlighter
-                    {...rest}
-                    PreTag="div"
-                    language={match[1]}
-                    style={codeTheme}
-                    customStyle={{
-                        marginBlock: "0",
-                        padding: "2px",
-                    }}
-                    codeTagProps={{
-                        style: {
-                            padding: "14px",
-                            fontWeight: "600",
-                        },
-                    }}
+                        {...rest}
+                        PreTag="div"
+                        language={match[1]}
+                        style={codeTheme}
+                        customStyle={{
+                            marginBlock: "0",
+                            padding: "2px",
+                        }}
+                        codeTagProps={{
+                            style: {
+                                padding: "14px",
+                                fontWeight: "600",
+                            },
+                        }}
                     >
                         {children}
                     </SyntaxHighlighter>
                 </div>
 
-                <div className="bg-light-surfaceContainer
-                 dark:bg-dark-surfaceContainer rounded-t-extraSmall
-                 rounded-b-medium flex justify-betwen items-center
-                 h-11 font-sans text-bodyMedium ps-4 pe-2">
+                <div
+                    className="bg-light-surfaceContainer dark:bg-dark-surfaceContainer
+                     rounded-t-extraSmall rounded-b-medium flex justify-between items-center
+                     h-11 font-sans text-bodyMedium ps-4 pe-2"
+                >
                     <p>
                         Use code
-                        <a 
+                        <a
                             className="link ms-2"
                             href="https://gemini.google.com/faq#coding"
                             target="_blank"
-                            >
-                                with caution.
+                            rel="noopener noreferrer"
+                        >
+                            with caution.
                         </a>
                     </p>
 
-                    <IconBtn 
+                    <IconBtn
                         icon="content_copy"
                         size="small"
                         title="Copy code"
                         onClick={handleCopy.bind(null, children)}
                     />
-
                 </div>
             </>
         ) : (
             <code className={className}>{children}</code>
-        )
+        );
     };
 
-  return (
-    <div className="grid grid-cols-1 items-start gap-1 py-4 
-    md:grid-cols-[max-content,minmax(0,1fr)]
-    md:gap-5">
-        <figure className="w-8 h-8 
-        grid place-items-center">
-            <img 
-                src={iconLogo} 
-                width={32} 
-                height={32}
-                alt="WiredAI logo" 
-            />
-        </figure>
+    return (
+        <div
+            className="grid grid-cols-1 items-start gap-1 py-4 
+            md:grid-cols-[max-content,minmax(0,1fr)] md:gap-5"
+        >
+            <figure className="w-8 h-8 grid place-items-center">
+                <img
+                    src={iconLogo}
+                    width={32}
+                    height={32}
+                    alt="WiredAI logo"
+                />
+            </figure>
 
-        {children}
+            {children}
 
-    <div className="markdown-content">
-            <Markdown remarkPlugins={[remarkGfm]} 
-            components={{ code }}>
-                {aiResponse}
-            </Markdown>
+            <div className="markdown-content">
+                <Markdown remarkPlugins={[remarkGfm]} components={{ code }}>
+                    {aiResponse}
+                </Markdown>
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
 AiResponse.propTypes = {
-  aiResponse: PropTypes.string,
-  children: PropTypes.any,
-}
+    aiResponse: PropTypes.string,
+    children: PropTypes.any,
+};
 
-export default AiResponse
+export default AiResponse;
