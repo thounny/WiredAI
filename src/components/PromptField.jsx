@@ -1,7 +1,7 @@
 // NODE MODULES
 import { motion } from "framer-motion";
 import { useRef, useCallback, useState } from "react";
-import { useSubmit, useNavigation } from "react-router-dom";
+import { useSubmit, useNavigation, useParams } from "react-router-dom";
 
 // COMPONENTS
 import { IconBtn } from "./Button";
@@ -17,6 +17,9 @@ const PromptField = () => {
 
     // INITAL NAVIGATION FOR CHECKING IF PAGE IS LOADING
     const navigation = useNavigation();
+
+    // RETRIEVE USER ID FROM URL PARAMS
+    const { conversationId } = useParams();    
 
     // STATE TO DETERMINE IF PLACEHOLDER SHOULD BE SHOWN
     const [placeholderShown, setPlaceholderShown] = useState(true);
@@ -71,12 +74,12 @@ const PromptField = () => {
         }, {
             method: "POST",
             encType: "application/x-www-form-urlencoded",
-            action: "/",
+            action: `${conversationId || ""}`,
         })
 
         inputField.current.innerText = "";
         handleInputChange();
-    }, [handleInputChange, inputValue, navigation.state, submit]);
+    }, [handleInputChange, inputValue, navigation.state, submit, conversationId]);
 
     // FRAMER MOTION VARIANTS FOR PROMPT FIELD ANIMATION
     const promptFieldVariant = {
