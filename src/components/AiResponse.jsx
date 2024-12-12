@@ -101,7 +101,7 @@ const AiResponse = ({ aiResponse, children }) => {
                         icon="content_copy"
                         size="small"
                         title="Copy code"
-                        onClick={handleCopy.bind(null, children)}
+                        onClick={() => handleCopy(children?.toString() || "")}
                     />
                 </div>
             </>
