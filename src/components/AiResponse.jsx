@@ -1,5 +1,7 @@
 // NODE MODULES
 import PropTypes from "prop-types";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 // ASSETS
 import { iconLogo } from "../assets/assets";
@@ -21,7 +23,11 @@ const AiResponse = ({ aiResponse, children }) => {
 
         {children}
 
-    <div className="markdown-content">{aiResponse}</div>
+    <div className="markdown-content">
+            <Markdown remarkPlugins={[remarkGfm]}>
+                {aiResponse}
+            </Markdown>
+        </div>
     </div>
   )
 }
