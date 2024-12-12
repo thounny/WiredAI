@@ -4,7 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { hopscotch, coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // COMPONENTS
 import { IconBtn } from "./Button";
@@ -40,6 +40,16 @@ const AiResponse = ({ aiResponse, children }) => {
             // CLEANUP FUNCTION TO REMOVE EVENT LISTENER
             return () => mediaQuery.removeEventListener("change"
             , themeListener);
+    }, []);
+
+    const handleCopy = useCallback(async (text) => {
+        try {
+            await navigator.clipboard.writeText(text);
+
+        } catch (err) {
+            console.log(`Error copying code: ${err.message}`);
+        }
+        
     }, []);
 
     // FUNCTION EXECUTES FOR EVERY CODE TAG
@@ -91,6 +101,7 @@ const AiResponse = ({ aiResponse, children }) => {
                         icon="content_copy"
                         size="small"
                         title="Copy code"
+                        onClick={handleCopy.bind(null, children)}
                     />
 
                 </div>
