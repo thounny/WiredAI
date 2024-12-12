@@ -12,8 +12,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     // EXTRACT CONVERSATIONS FROM LOADER DATA IF EXISTS
     const { conversations: {documents: conversationData}, 
     } = useLoaderData() || {};
-    console.log(conversationData);
-    
     return (
         <>
             <motion.div 
