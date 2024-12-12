@@ -1,15 +1,26 @@
 // NODE MODULES
 import { motion } from "framer-motion"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useLocation } from "react-router-dom"
 
 // COMPONENTS
 import PageTitle from "../components/PageTitle"
 import UserPrompt from "../components/UserPrompt"
 import AiResponse from "../components/AiResponse"
+import PromptPreloader from "../components/PromptPreloader"
+
+// CUSTOM HOOKS
+import { usePromptPreloader } from "../hooks/userPromptPreloader"
+
 
 const Conversation = () => {
     const { conversation: {title, chats },
  } = useLoaderData() || {};
+
+ // RETRIEVE PROMPT PRELOADER VALUE FROM CUSTOM HOOK
+ const { promptPreloaderValue } = usePromptPreloader();
+
+//  OBTAIN CURRENT URL LOCATION USING LOCATION HOOK
+    const location = useLocation();
     
   return (
     <>
@@ -17,7 +28,7 @@ const Conversation = () => {
         <PageTitle title={`${title} | WiredAI`} />
 
         <motion.div className="max-w-[700px] mx-auto !will-change-auto" 
-        initial={{ opacity: 0 }} 
+        initial={!location.state?._isRedirect && { opacity: 0 }} 
         animate={{opacity: 1}}
         transition={{  duration: 0.2, delay: 0.05, ease: "easeOut" }}
         >
@@ -31,6 +42,11 @@ const Conversation = () => {
                 </div>
             ))}
         </motion.div>
+
+        {/* USER PROMPT PRELOADER */}
+        {promptPreloaderValue && (
+        <PromptPreloader promptValue={ promptPreloaderValue }/>
+        )}
     </>
   )
 }
