@@ -1,6 +1,6 @@
 // NODE MODULES
 import { motion } from "framer-motion";
-import { Outlet,useParams } from "react-router-dom";
+import { Outlet,useParams, useNavigation } from "react-router-dom";
 // COMPONENTS
 import PageTitle from "./components/PageTitle";
 import TopAppBar from "./components/TopAppBar";
@@ -15,8 +15,14 @@ const App = () => {
   // GET URL PARAMETERS
   const params = useParams();
 
+  // ACCESS NAVIGATION STATE
+  const navigation = useNavigation();
+
   // TOGGLE SIDEBAR
   const [isSidebarOpen, toggleSidebar] = useToggle();
+
+  // CHECK IF PAGE IS LOADING
+  const isNormalLoad = navigation.state === "loading" && !navigation.formData;
 
   return (
     <>
@@ -34,7 +40,7 @@ const App = () => {
         {/* Main content */}
         <div className="px-5 pb-5 flex-col overflow-y-auto">
           <div className="max-w-[840px] w-full mx-auto grow">
-            {params.conversationId ? ( 
+            {isNormalLoad ? null : params.conversationId ? ( 
               <Outlet /> // CONVERSATION
              ) : (
               <Greetings />
