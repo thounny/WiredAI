@@ -30,6 +30,16 @@ const AiResponse = ({ aiResponse, children }) => {
 
         // INITIALLY SET CODE THEME BASED ON CURRENT MEDIA QUERY
         setCodeTheme(mediaQuery.matches ? hopscotch : coy);
+
+        // CREATE EVENT LISTENER TO UPDATE CODE THEME WHEN MEDIA QUERY CHANGES
+        const themeListener = mediaQuery.addEventListener("change"
+            , (event) => {
+                setCodeTheme(event.matches ? hopscotch : coy);
+            });
+
+            // CLEANUP FUNCTION TO REMOVE EVENT LISTENER
+            return () => mediaQuery.removeEventListener("change"
+            , themeListener);
     }, []);
 
     // FUNCTION EXECUTES FOR EVERY CODE TAG
