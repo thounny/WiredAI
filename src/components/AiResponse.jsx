@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { hopscotch, coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useState, useEffect } from "react";
 
 // COMPONENTS
 import { IconBtn } from "./Button";
@@ -14,6 +15,19 @@ import { iconLogo } from "../assets/assets";
 
 
 const AiResponse = ({ aiResponse, children }) => {
+
+    // INITIALIZE CODE THEME STATE TO EMPTY STRING
+    const [codeTheme, setCodeTheme] = useState("");
+
+    // USE EFFECT TO DETECT USER'S PREFERRED CODE THEME
+    useEffect(() => {
+        // CREATE MEDIA QUERY TO DETECT USER'S PREFERRED CODE THEME
+        const mediaQuery = window.matchMedia
+        ('(prefers-color-scheme: dark)');
+
+        // INITIALLY SET CODE THEME BASED ON CURRENT MEDIA QUERY
+        setCodeTheme(mediaQuery.matches ? hopscotch : coy);
+    }, []);
 
     // FUNCTION EXECUTES FOR EVERY CODE TAG
     const code = ({ children, className, ...rest }) => {
@@ -28,7 +42,7 @@ const AiResponse = ({ aiResponse, children }) => {
                     {...rest}
                     PreTag="div"
                     language={match[1]}
-                    style={hopscotch}
+                    style={codeTheme}
                     customStyle={{
                         marginBlock: "0",
                         padding: "2px",
@@ -44,7 +58,10 @@ const AiResponse = ({ aiResponse, children }) => {
                     </SyntaxHighlighter>
                 </div>
 
-                <div className="">
+                <div className="bg-light-surfaceContainer
+                 dark:bg-dark-surfaceContainer rounded-t-extraSmall
+                 rounded-b-medium flex justify-betwen items-center
+                 h-11 font-sans text-bodyMedium ps-4 pe-2">
                     <p>
                         Use code
                         <a 
