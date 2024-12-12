@@ -6,7 +6,7 @@ const Greetings = () => {
     const { user } = useLoaderData();
 
     return (
-        <div className="grid place-content-center h-full">
+        <div className="grid place-content-center h-[calc(100vh-64px)] md:h-full px-4">
             <h2 className="text-headlineLarge font-semibold 
             text-center tracking-tight text-light-onSurfaceVariant
             dark:text-dark-onSurfaceVariant">
@@ -23,16 +23,16 @@ const Greetings = () => {
                 <br />
                 <motion.span 
                     initial={{ opacity: 0 }} 
-                    animate={{opacity: 1}}
+                    animate={{ opacity: 1 }}
                     transition=
-                    {{  duration: 0.6, delay: 0.3, ease: "easeOut"  }}
+                    {{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                     className="dark:font-medium"
                 >
                     How can I help?
                 </motion.span>
             </h2>
         </div>
-    ) 
+    ); 
 };
 
 export default Greetings;
