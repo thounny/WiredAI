@@ -586,6 +586,39 @@
     after:-translate-y-1/2
     after:pointer-events-none;
   }
+
+  /* MARKDOWN CONTENT */
+  .markdown-content {
+    @apply text-light-onSurface
+    dark:text-dark-onSurface
+    leading-7
+    pt-1;
+  }
+
+  .markdown-content > :first-child {
+    @apply !mt-0;
+  }
+
+  .markdown-content :where(h1, h2, h3, h4, h5, h6) {
+    @apply text-titleMedium
+    font-semibold
+    mt-8
+    mb-4;
+  }
+
+  .markdown-content :where(p, pre, table) {
+    @apply my-4;
+  }
+
+  .markdown-content :where(strong, span, a) {
+    @apply inline;
+  }
+
+  .markdown-content :where(ul, ol) {
+    list-style: revert;
+    @apply my-1
+    ps-[18px];
+  }
 }
 
 /* UTILITIES */
