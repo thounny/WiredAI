@@ -28,7 +28,7 @@ export default {
           background: "#F5FBF7",
           onBackground: "#171D1B",
           surface: "#F5FBF7",
-          onSurface: "#171D1B",
+          onSurface: "#85D6C1",
           surfaceVariant: "#DBE5E0",
           onSurfaceVariant: "#3F4945",
           outline: "#6F7975",
