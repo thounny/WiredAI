@@ -30,7 +30,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
                 <div className="sidebar-inner">
-                    <div className="h-16 grid items-center px-4 mb-4">
+                    <div className="h-16 grid items-center px-4 mb-20">
                         <Logo />
                     </div>
 
