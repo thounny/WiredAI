@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // ASSETS
-import { banner } from "../assets/assets";
+import Navi from "../assets/navi1.gif";
 
 // CUSTOM HOOKS
 import { useSnackbar } from "../hooks/useSnackbar";
@@ -100,7 +100,7 @@ const ResetPassword = () => {
         {/* Right Section */}
         <div className="hidden img-box lg:block lg:relative lg:rounded-large">
           <img
-            src={banner}
+            src={Navi}
             alt="Register banner"
             className="img-cover"
           />
