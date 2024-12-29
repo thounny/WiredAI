@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // ASSETS
-import { logoLight, logoDark } from "../assets/assets";
 import Lain from "../assets/lain2.gif"
 
 const Logo = ({classes = ""}) => {
