@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import { IconBtn } from "./Button";
 
 // ASSETS
-import { iconLogo } from "../assets/assets";
+import Lain from "../assets/lain.gif"
 
 // CUSTOM MODULES
 import toTitleCase from "../utils/toTitleCase";
@@ -117,7 +117,7 @@ const AiResponse = ({ aiResponse, children }) => {
         >
             <figure className="w-8 h-8 grid place-items-center">
                 <img
-                    src={iconLogo}
+                    src={Lain}
                     width={32}
                     height={32}
                     alt="WiredAI logo"
