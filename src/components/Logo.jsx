@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 // ASSETS
 import { logoLight, logoDark } from "../assets/assets";
+import Lain from "../assets/lain2.gif"
 
 const Logo = ({classes = ""}) => {
     return (
@@ -12,7 +13,7 @@ const Logo = ({classes = ""}) => {
             className={`min-w-max max-w-max h-[24px] ${classes}`}
             >
                 <img 
-                src={logoLight} 
+                src={Lain} 
                 width={133} 
                 height={24} 
                 alt="WiredAI logo" 
@@ -20,7 +21,7 @@ const Logo = ({classes = ""}) => {
                 />
 
                 <img 
-                src={logoDark} 
+                src={Lain} 
                 width={133} 
                 height={24} 
                 alt="WiredAI logo" 
